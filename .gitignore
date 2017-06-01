@@ -35,3 +35,20 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# SBT Specific #
+################
+.cache
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# ENSIME Specific #
+###################
+*.ensime
+.ensime_cache/
