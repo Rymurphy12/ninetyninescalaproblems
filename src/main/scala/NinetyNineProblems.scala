@@ -1,3 +1,9 @@
+object NinetyNineProblems {
+  def main(args: Array[String]): Unit = {
+    println(P09.pack(List('a,'a,'a,'a,'b,'c,'c,'a,'a,'d,'e,'e,'e,'e)))
+  }
+}
+
 object P01{
   //Problem 1
   def last[A](xs: List[A]):A = xs match {
@@ -61,8 +67,41 @@ object P07 {
   def flatten(xs: List[Any]): List[Any] = {
     if (xs == Nil) Nil
     else (xs.head, xs.tail) match {
-    case (h: List[_], t) => if (t == Nil) flatten(h) ::: Nil else flatten(h) ::: flatten(t)
-    case (h, t) => if (t == Nil) List(h) else h :: flatten(t)
+      case (h: List[_], Nil) => flatten(h) ::: Nil
+      case (h, Nil) => List(h)
+      case (h: List[_], t) => flatten(h) ::: flatten(t)
+      case (h, t) =>  h :: flatten(t)
     }
+  }
+}
+
+object P08 {
+  //Problem 8
+  def compress[A](xs: List[A]): List[A] = {
+    def go(acc: List[A], xs: List[A]): List[A] = xs match {
+      case Nil => acc.reverse
+      case h :: Nil => (h :: acc).reverse
+      case h :: t => if (h == t.head) go(h :: acc, t dropWhile(_ == h)) else go( h :: acc, t)
+   }
+    go(Nil, xs)
+  }
+}
+
+object P09 {
+  //Problem 9
+  def pack[A](xs: List[A]): List[List[A]] = {
+    def go(acc: List[List[A]], xs: List[A]): List[List[A]] = xs match {
+      case Nil => acc.reverse
+      case h :: t => {
+        val (newList, oldList) = buildSublist(Nil, xs)
+        go(newList :: acc, oldList)
+      }
+    }
+
+    def  buildSublist(acc: List[A], xs: List[A]): (List[A], List[A]) = xs match {
+      case Nil => (acc.reverse, xs)
+      case h :: t => if (t != Nil && h == t.head) buildSublist(h :: acc, t) else ((h :: acc).reverse, t)
+    }
+    go(Nil, xs)
   }
 }

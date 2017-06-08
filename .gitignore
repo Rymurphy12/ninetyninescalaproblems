@@ -52,3 +52,7 @@ project/plugins/project/
 ###################
 *.ensime
 .ensime_cache/
+
+# IntelliJ Specific #
+#####################
+.idea/
