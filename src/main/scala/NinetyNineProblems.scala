@@ -105,3 +105,11 @@ object P09 {
     go(Nil, xs)
   }
 }
+
+object P10 {
+  //Problem 10
+  def encode[A](xs: List[A]): List[(Int, A)] = {
+    val packedList = P09.pack(xs)
+    packedList map (x => (x.length, x.head))
+  }
+}

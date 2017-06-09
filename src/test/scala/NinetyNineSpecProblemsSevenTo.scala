@@ -79,4 +79,7 @@ class NinetyNineSpec extends FlatSpec{
     assert(P09.pack(List(1))== List(List(1)))
   }
 
+  "Encoding a list of Symbols: List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)" should "Return List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)" in {
+  assert(P10.encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) == List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
+}
 }
