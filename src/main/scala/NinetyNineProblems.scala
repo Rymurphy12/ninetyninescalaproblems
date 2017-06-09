@@ -97,19 +97,67 @@ object P09 {
         go(newList :: acc, oldList)
       }
     }
-
-    def  buildSublist(acc: List[A], xs: List[A]): (List[A], List[A]) = xs match {
-      case Nil => (acc.reverse, xs)
-      case h :: t => if (t != Nil && h == t.head) buildSublist(h :: acc, t) else ((h :: acc).reverse, t)
-    }
     go(Nil, xs)
+  }
+  def  buildSublist[A](acc: List[A], xs: List[A]): (List[A], List[A]) = xs match {
+    case Nil => (acc.reverse, xs)
+    case h :: t => if (t != Nil && h == t.head) buildSublist(h :: acc, t) else ((h :: acc).reverse, t)
   }
 }
 
 object P10 {
   //Problem 10
   def encode[A](xs: List[A]): List[(Int, A)] = {
+    if (xs == Nil) throw new NoSuchElementException
     val packedList = P09.pack(xs)
     packedList map (x => (x.length, x.head))
+  }
+}
+
+object P11 {
+  //Problem 11
+  def encodeModified[A](xs: List[A]): List[Any] = {
+    if (xs == Nil) throw new NoSuchElementException
+    val packedList = P09.pack(xs)
+    packedList map {x => if(x.length == 1) x.head else (x.length, x.head)}
+
+  }
+}
+
+object P12 {
+  //Problem 12
+  def decode[A](xs: List[(Int, A)]): List[A] = {
+    if(xs == Nil) throw new NoSuchElementException
+    def go(acc: List[A], encodedList : List[(Int, A)]): List[A] = encodedList match {
+      case Nil => acc.reverse
+      case h :: t => go(decodeTuple(Nil, h) ::: acc, t)
+    }
+
+    def decodeTuple(acc: List[A], tuple: (Int, A)): List[A] = tuple match {
+      case (0, _) => acc
+      case (n, a) => decodeTuple(a :: acc, (n-1, a))
+    }
+    go(Nil, xs)
+  }
+}
+
+object P13 {
+  //Problem 13
+  def encodeDirect[A](xs: List[A]): List[(Int, A)] = {
+    if (xs == Nil) throw new NoSuchElementException
+    def go(acc: List[(Int, A)], unencodedList: List[A]): List[(Int, A)] = unencodedList match {
+      case Nil => acc.reverse
+      case _ => { val (subList, remainingList) = P09.buildSublist(Nil, unencodedList)
+                  go((subList.length, subList.head) :: acc, remainingList)
+      }
+    }
+    go(Nil, xs)
+  }
+}
+
+object P14 {
+  //Problem 14
+  def duplicate[A](xs: List[A]): List[A] = {
+    xs flatMap (x => List(x, x))
   }
 }
