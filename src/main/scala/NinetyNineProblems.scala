@@ -157,7 +157,21 @@ object P13 {
 
 object P14 {
   //Problem 14
-  def duplicate[A](xs: List[A]): List[A] = {
+  def duplicate[A](xs: List[A]): List[A] = 
     xs flatMap (x => List(x, x))
+  
+}
+
+object P15 {
+  //Problem 15
+  def duplicateN[A](n: Int, xs: List[A]): List[A] =
+    xs flatMap (x => List.fill(n)(x))
+  
+}
+
+object P16 {
+  def drop[A](n: Int, xs: List[A]) : List[A] = 
+    xs.zipWithIndex.collect{
+      case (x, y) if (y + 1) % n != 0  => x  
   }
 }

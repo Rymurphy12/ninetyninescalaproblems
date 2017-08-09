@@ -1,7 +1,7 @@
 import org.scalatest.FlatSpec
 
 
-class NinetyNineSpec extends FlatSpec{
+class NinetyNineSpecSixToForteen extends FlatSpec{
   "A list of numbers: List(1,2,3,4,5)" should "return false" in {
     assert(!P06.isPalindrome(List(1,2,3,4,5)))
   }
