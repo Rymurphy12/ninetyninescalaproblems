@@ -175,3 +175,14 @@ object P16 {
       case (x, y) if (y + 1) % n != 0  => x  
   }
 }
+
+object P17 {
+  def split[A](n: Int, xs: List[A]): (List[A], List[A]) = {
+    def go(acc: List[A], xs: List[A], n: Int): (List[A], List[A]) = (xs, n) match {
+      case (Nil, _) => (acc.reverse, Nil)
+      case (l, 0) => (acc.reverse, l)
+      case (h :: t, n) => go(h :: acc, t, n -1)
+    }
+    go(Nil,xs, n)
+  }
+}
